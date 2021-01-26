@@ -13,6 +13,12 @@ macro bind(def, element)
     end
 end
 
+# ╔═╡ 66a11692-5ef9-11eb-1b4f-0f1071b15615
+begin
+	using Pkg
+	Pkg.instantiate()
+end
+
 # ╔═╡ 1b746900-5c13-11eb-131a-35dbeb769750
 using Plots
 
@@ -26,6 +32,9 @@ using InteractiveUtils
 
 # ╔═╡ c745fe40-5cd3-11eb-0834-cdc44d353dd3
 using NumericalIntegration
+
+# ╔═╡ 834676ce-5eff-11eb-3550-5f34c8c7dcb8
+
 
 # ╔═╡ 31eac102-5cb0-11eb-29f1-2b5dbde52ad7
 function arr_mult(arr1, arr2)
@@ -376,6 +385,7 @@ abs.(sim.psi_k)[x0_index]
 
 # ╔═╡ 21484402-5ccc-11eb-0df3-fdafe0fdc18e
 begin
+	should_run = false
 	@bind should_run html"<input type='checkbox'>"
 end
 
@@ -603,8 +613,10 @@ begin
 end
 
 # ╔═╡ Cell order:
+# ╠═66a11692-5ef9-11eb-1b4f-0f1071b15615
 # ╠═1b746900-5c13-11eb-131a-35dbeb769750
 # ╠═8c40b6f0-5ca6-11eb-166d-7bcc06b57824
+# ╠═834676ce-5eff-11eb-3550-5f34c8c7dcb8
 # ╠═793e1e50-5ccc-11eb-1a48-970cca724a39
 # ╠═c745fe40-5cd3-11eb-0834-cdc44d353dd3
 # ╠═31eac102-5cb0-11eb-29f1-2b5dbde52ad7

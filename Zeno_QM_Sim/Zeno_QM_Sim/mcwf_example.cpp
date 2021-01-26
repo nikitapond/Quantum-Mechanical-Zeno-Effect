@@ -72,8 +72,6 @@ void propagate_single_traj(complex hamil[N][N], complex phi[nt][N]) {
         }
     }
 }
-#define _CRT_SECURE_NO_DEPRECATE
-#pragma warning (disable : 4996)
 
 void dump_population_to_file(double population[nt][N]) {
     FILE* file = fopen("C:/Users/nikit/github/ZenoQM/Zeno_QM/Python/population.dat", "w");
@@ -90,7 +88,7 @@ void dump_phi_to_file(complex phi[nt][N]) {
     fclose(file);
 }
 
-int main(int argc, char* argv[]) {
+int main3(int argc, char* argv[]) {
     complex hamil[N][N];
     generateHamiltonian(hamil);
 
