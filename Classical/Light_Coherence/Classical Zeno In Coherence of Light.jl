@@ -388,10 +388,10 @@ exp_2_args = GlobalArgs(101, 0.5, 0.1)
 if run_heatmaps
 		
 	file_path = "figs/heatmaps"
+	file_path_no_cbar = "figs/heatmaps/nocbar"
+
 	cbar_min = 0
 	cbar_max = 0.015
-	all_hm = Any[]
-	slit_counts = Any[]
 	
 	all_slits = append!([1], Array(5:5:25))
 	#try between 1 and
@@ -405,19 +405,31 @@ if run_heatmaps
 			startA = abs.(startA) .^ 2 #convert from intensity to coherence like
 			hm = heatmap(startA, aspect_ratio=:equal,  clim=(cbar_min, cbar_max))
 			plt = plot(hm)
-			push!(all_hm, hm)
-			push!(slit_counts, 0)
+			plot!(xlabel= L"x_1", ylabel=L"x_2")
+
 			saveFigToDir(file_path, "coherence_heatmap_source.pdf", plt)
+			
+				#save without cbar
+			hm_no_cbar = heatmap(startA, aspect_ration=:equal, legend=:none, clim=(cbar_min, cbar_max))
+			plot_no_cbar = plot(hm_no_cbar)
+			plot!(xlabel= L"x_1", ylabel=L"x_2")
+			saveFigToDir(file_path_no_cbar, "coherence_heatmap_$slit _slits_nocbar.pdf", plot_no_cbar)
 			#savefig("$file_path /coherence_heatmap_source.pdf")
 		end
 		
 		endA = abs.(endA) .^ 2#convert from intensity to coherence like
 
+		#save file with cbar
 		hm = heatmap(endA, aspect_ration=:equal, clim=(cbar_min, cbar_max))
 		plt = plot(hm)
-		push!(all_hm, hm)
-		push!(slit_counts, slit)
+		plot!(xlabel= L"x_1", ylabel=L"x_2")
 		saveFigToDir(file_path, "coherence_heatmap_$slit _slits.pdf", plt)
+		
+		#save without cbar
+		hm_no_cbar = heatmap(endA, aspect_ration=:equal, legend=:none, clim=(cbar_min, cbar_max))
+		plot_no_cbar = plot(hm_no_cbar)
+		plot!(xlabel= L"x_1", ylabel=L"x_2")
+		saveFigToDir(file_path_no_cbar, "coherence_heatmap_$slit _slits_nocbar.pdf", plot_no_cbar)
 
 	end
 		
@@ -848,7 +860,7 @@ end
 # ╟─bd94c1d0-5ff1-11eb-2863-ef94e26d9cc8
 # ╠═6cf6803c-607e-11eb-3bfc-69879c07310e
 # ╟─0a5b3306-614f-11eb-08d6-07ac92e07c51
-# ╟─8a0550d6-5ff2-11eb-33b5-79c6ac0b4c63
+# ╠═8a0550d6-5ff2-11eb-33b5-79c6ac0b4c63
 # ╟─ffa9ae64-6156-11eb-393b-2bf51a61773e
 # ╟─9757caca-6083-11eb-1123-49788ed0e63d
 # ╠═267db182-6152-11eb-3284-f9f1ca65646a
@@ -864,9 +876,9 @@ end
 # ╟─fe0b1ca2-609e-11eb-04b0-4d624a098f95
 # ╟─75213890-6152-11eb-2174-01d67465f3f8
 # ╟─093a9858-60b0-11eb-0ca1-b92defa3bb4d
-# ╟─91c139aa-60b0-11eb-389b-9b490c4402fe
-# ╟─3da4cef6-6150-11eb-0e44-d74baa81dcd5
-# ╟─e957f802-6152-11eb-30a3-331d53e32933
-# ╟─7adc8a16-60b0-11eb-022e-efa13742de0a
+# ╠═91c139aa-60b0-11eb-389b-9b490c4402fe
+# ╠═3da4cef6-6150-11eb-0e44-d74baa81dcd5
+# ╠═e957f802-6152-11eb-30a3-331d53e32933
+# ╠═7adc8a16-60b0-11eb-022e-efa13742de0a
 # ╟─7368859e-60b2-11eb-329c-a18737645b13
 # ╟─59f1b756-6153-11eb-0685-3163bdc3debc
