@@ -379,7 +379,18 @@ In the cell below, we print a set of heat maps that represent the coherence of t
 """
 
 # ╔═╡ 6cf6803c-607e-11eb-3bfc-69879c07310e
-exp_2_args = GlobalArgs(101, 0.5, 0.1)
+exp_2_args = GlobalArgs(51, 0.5, 0.2)
+
+# ╔═╡ f3c717b4-6233-11eb-3f44-b95ab2db7951
+let
+	
+	data_test = Data(exp_2_args.n, exp_2_args.zmax, 1, exp_2_args.dd)
+	initExperimentValues(data_test)
+	
+	#calculate start values
+ 	startPower = calculatePower(data_test)
+ 	startCoh = calculateCoherence(data_test, startPower)
+end
 
 # ╔═╡ 0a5b3306-614f-11eb-08d6-07ac92e07c51
 @bind run_heatmaps CheckBox()
@@ -391,7 +402,7 @@ if run_heatmaps
 	file_path_no_cbar = "figs/heatmaps/nocbar"
 
 	cbar_min = 0
-	cbar_max = 0.015
+	cbar_max = 0.045
 	
 	all_slits = append!([1], Array(5:5:25))
 	#try between 1 and
@@ -859,6 +870,7 @@ end
 # ╟─80e20acc-5fbf-11eb-0960-21686dd875d8
 # ╟─bd94c1d0-5ff1-11eb-2863-ef94e26d9cc8
 # ╠═6cf6803c-607e-11eb-3bfc-69879c07310e
+# ╠═f3c717b4-6233-11eb-3f44-b95ab2db7951
 # ╟─0a5b3306-614f-11eb-08d6-07ac92e07c51
 # ╠═8a0550d6-5ff2-11eb-33b5-79c6ac0b4c63
 # ╟─ffa9ae64-6156-11eb-393b-2bf51a61773e
