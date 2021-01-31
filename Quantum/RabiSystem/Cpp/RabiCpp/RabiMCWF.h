@@ -9,19 +9,6 @@
 
 const int N = 2;
 
-Mat2 Sp(0,0,1,0); //Sigma+
-Mat2 Sm(0,1,0,0);
-Mat2 Ee(0,0,1,0);
-Mat2 Ve(0,1,1,0);
-Mat2 Id(1,0,1,0);
-
-Mat2 aDag(0,0,1,0);
-Mat2 a(0,1,0,0);
-
-Mat2 aDagMinusA(0,-1,1,0);
-Mat2 aDagMultA(0,0,0,1);
-
-
 
 
 
@@ -48,6 +35,9 @@ struct Vec2R{
         if(index == 1) return this->y;
         return 0; 
     }
+    std::string ToString() {
+        return std::to_string(x) + ", " + std::to_string(y);
+    }
 };
 
 class RabiMCWF{
@@ -59,6 +49,8 @@ private:
     Mat2 hamNH; //Non hermitian hamiltonian
     std::vector<Mat2> jumpOperators; //Jump operators
 
+    void Init();
+
     Mat2 GenerateHamiltonian();
     Mat2 GenerateNonHermitianHamiltonian();
     std::vector<Mat2> GenerateJumpOperators();
@@ -68,15 +60,10 @@ private:
 
     Vec2R CalcPk(Vec2& phi);
 
-    void Propagate(double dt, int nSteps, std::vector<Vec2>& phi, int measureDelta, int measureLength);
+    bool Propagate(double dt, int nSteps, std::vector<Vec2>& phi, int measureDelta, int measureLength);
 
 public:
-    RabiMCWF(){
-        hbar = 1.;
-        n_th = 1.;
-        kappa = 1.;
-        eta = 1.;
-    }
+    RabiMCWF();
     RabiMCWF(double hbar, double n_th, double kappa, double eta);
 
     std::vector<Vec2R> RunExperiment(int nSteps, int measureDelta, int measureLength, double dt, int iterations);

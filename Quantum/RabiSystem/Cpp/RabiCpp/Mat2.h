@@ -1,7 +1,11 @@
 #pragma once
 #include <complex>
+#include <string>
 #define complex std::complex<double>
 const complex I = complex(0., 1.);
+std::string to_string_complex(complex c);
+
+
 class Vec2;
 
 
@@ -19,8 +23,12 @@ public:
         this->m21 = m21;
         this->m22 = m22;
     }
+    complex M11() const { return m11; }
+    complex M12() const { return m12; }
+    complex M21() const { return m21; }
+    complex M22() const { return m22; }
 
-
+    std::string ToString();
 
     Mat2 Hermitian();
     Mat2 dot(Mat2 &b);

@@ -454,7 +454,7 @@ struct AnimatableResult
 end
 
 # ╔═╡ 8bffe9e0-5d55-11eb-2865-77e638194262
-function plotAnimationResult(anim::AnimatableResult)
+function plotAnimationResult(anim::AnimatableResult, file)
 	potential = (anim.v_x .* 0.1)[anim.v_boundary+1:anim.N-anim.v_boundary-2]
 		
 	pot_x = anim.x[anim.v_boundary+1:anim.N-anim.v_boundary-2]
@@ -467,7 +467,7 @@ function plotAnimationResult(anim::AnimatableResult)
 		plot([anim.x,anim.x, pot_x], [anim.psi_x_res[(t*anim.N +1):(t+1)*anim.N],anim.psi_k_res[(t*anim.N +1):(t+1)*anim.N], potential], layout=(2,1), size=(600,300))
 		frame(anim_)
 	end
-	gif(anim_, "lol.gif", fps=200)
+	gif(anim_, file, fps=200)
 end
 
 # ╔═╡ 600a20b0-5d52-11eb-1b39-ad226a76aea4
@@ -587,7 +587,7 @@ begin
 	
 	 
 	anim, results_no_measure = RunSimulation(gArgs,	25000, iterations, true, true)
-	plotAnimationResult(anim)
+	plotAnimationResult(anim, "test1.gif")
 	
 end
 
@@ -601,7 +601,7 @@ begin
 	
 	 
 	anim_100, results_ever_100 = RunSimulation(gArgs,	100, iterations, true, true)
-	plotAnimationResult(anim_100)
+	plotAnimationResult(anim_100, "test2.gif")
 	
 end
 

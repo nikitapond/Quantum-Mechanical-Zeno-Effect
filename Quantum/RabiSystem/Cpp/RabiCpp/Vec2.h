@@ -1,8 +1,8 @@
-//#pragma once
+#pragma once
 //class Mat2;
 #include "Mat2.h"
 
-#define complex std::complex<double>
+#include <string>
 
 class Vec2{
 public:
@@ -16,7 +16,7 @@ public:
         this->x = x;
         this->y = y;
     };
-
+    std::string ToString();
     Vec2 operator+(Vec2 b);
     Vec2& operator+=(Vec2 b);
     Vec2 operator-(Vec2 b);

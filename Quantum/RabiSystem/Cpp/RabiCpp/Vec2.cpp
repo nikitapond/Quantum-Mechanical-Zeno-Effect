@@ -2,6 +2,7 @@
 
 #include "Vec2.h"
 #include <iostream>
+#include <complex>
 Vec2 Vec2::operator+(Vec2 b){
 
     return Vec2(this->x + b.x, this->y + b.y);
@@ -32,7 +33,7 @@ Vec2& Vec2::normalize(){
 
 complex Vec2::dot(Vec2 b){
 
-    return this->x * b.x + this->y + b.y;
+    return (this->x * b.x) + (this->y * b.y);
 
 }
 Vec2 Vec2::operator*(double b){
@@ -41,7 +42,7 @@ Vec2 Vec2::operator*(double b){
 
 Vec2 Vec2::dot(Mat2 b){
 
-    return Vec2(0,0);
+    return Vec2(this->x * b.M11() + this->y * b.M21(), this->x * b.M12() + this->y * b.M22());
 
 }
 complex Vec2::operator[](int index){
@@ -57,4 +58,14 @@ complex Vec2::operator[](int index){
 
 Vec2 Vec2::Conj(){
     return Vec2(conj(this->x), conj(this->y));
+}
+
+std::string Vec2::ToString() {
+
+
+    std::string x = std::to_string(real(this->x)) +" + " + std::to_string(imag(this->x)) + "i";
+    std::string y = std::to_string(real(this->y)) +" + " + std::to_string(imag(this->y)) + "i";
+    return x + ", " + y;
+
+
 }
