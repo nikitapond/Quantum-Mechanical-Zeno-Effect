@@ -6,6 +6,8 @@
 #include "Oscillator.h"
 #include <mutex>          // std::mutex
 
+
+
 void SaveResults(std::vector<float> res, std::string save){
 
 	std::ofstream file;
@@ -24,8 +26,8 @@ void SaveResults(std::vector<float> res, std::string save){
 std::mutex mtx;           // mutex for critical section
 
 
-const int T_STEPS = 64000;
-const int ITERATIONS = 500;
+const int T_STEPS = 640000;
+const int ITERATIONS = 2500;
 const float dt = 0.001;
 
 const int M_COUNT = 8;
@@ -35,6 +37,8 @@ const float MaxDist[DIST_COUNT] = { 0.0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14
 								   0.22, 0.24, 0.26, 0.28, 0.3, 0.32, 0.34, 0.36, 0.38, 0.40 };
 
 float all_results[M_COUNT][DIST_COUNT];
+
+int total_progress = 0;
 
 
 void StartThread(int m) {
@@ -46,9 +50,16 @@ void StartThread(int m) {
 		Oscillator o(1, 1, 5);
 		float avg = o.CalculateAverageAmplitude(T_STEPS, dt, ITERATIONS, mf, di, false);
 		mtx.lock();
+		total_progress++;
+		int p_ = int(total_progress / (float(M_COUNT * DIST_COUNT)) * 100);
+		//std::cout << "(MF: " << mf << ", MaxD: " << distMax << ")Progress: " << int(progress) << "%\r";
+		
+		std::cout << "Progress: " << p_ << "%\r";
+		std::cout.flush();
+		
 
 		all_results[m][d] = avg;
-		std::cout << "Thread: " << mf << "," << di << " complete: " << avg << std::endl;
+		//std::cout << "Thread: " << mf << "," << di << " complete: " << avg << std::endl;
 		mtx.unlock();
 	}
 
