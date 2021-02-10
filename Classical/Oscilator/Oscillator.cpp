@@ -35,8 +35,34 @@ std::vector<pos_vel> Oscillator::RunOscillator(int tSteps, float dt, int mf, flo
 		results[t] = pos_vel(x, v);
 	}
 
+	return results;
+}
+
+std::vector<pos_vel> Oscillator::RunMultipleOscillator(int tSteps, float dt, int mf, float distMax, int iterations, bool printProgress)
+{
+	std::vector<pos_vel> results(tSteps);
+	float progress = 0;
+
+	for (int i = 0; i < iterations; i++) {
+		//Run a single iteration
+		std::vector<pos_vel> it_res = this->RunOscillator(tSteps, dt, mf, distMax);
+		//Add to results
+		for (int t = 0; t < tSteps; t++) {
+			results[t] += it_res[t];
+		}
 
 
+		if (printProgress) {
+			progress = (i * 100.0) / iterations;
+			std::cout << "(MF: " << mf << ", MaxD: " << distMax << ")Progress: " << int(progress) << "%\r";
+			std::cout.flush();
+		}
+
+	}
+	//Scale results by iterations count
+	for (int t = 0; t < tSteps; t++) {
+		results[t] /= (1.0 * iterations);
+	}
 	return results;
 }
 
@@ -51,7 +77,7 @@ float Oscillator::CalculateAverageAmplitude(int tSteps, float dt, int iterations
 	for (int it = 0; it < iterations; it++) {
 
 		std::vector<pos_vel> results = this->RunOscillator(tSteps, dt, mf, distMax);
-		avgAmp += CalculateAverageDisturbance(results) / (1. * iterations);
+		avgAmp += CalculateAverageDisturbance(results);
 
 		if (printProgress) {
 			progress = (it * 100.0) / iterations;
@@ -60,7 +86,7 @@ float Oscillator::CalculateAverageAmplitude(int tSteps, float dt, int iterations
 		}
 
 	}
-
+	avgAmp /= (1.0 * iterations);
 	return avgAmp;
 }
 
