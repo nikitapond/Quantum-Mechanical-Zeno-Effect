@@ -60,12 +60,12 @@ private:
 
     Vec2R CalcPk(Vec2& phi);
 
-    bool Propagate(double dt, int nSteps, std::vector<Vec2>& phi, int measureDelta, int measureLength);
+    bool Propagate(double dt, int nSteps, std::vector<Vec2>& phi, int measureDelta);
 
 public:
     RabiMCWF();
     RabiMCWF(double hbar, double n_th, double kappa, double eta);
 
-    std::vector<Vec2R> RunExperiment(int nSteps, int measureDelta, int measureLength, double dt, int iterations);
+    std::vector<Vec2R> RunExperiment(int nSteps, int measureDelta, double dt, int iterations);
 
 };

@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Mat2.cpp" />
-    <ClCompile Include="MCWF_Cpp.cpp" />
+    <ClCompile Include="MCWF_main.cpp" />
     <ClCompile Include="RabiMCWF.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
