@@ -200,7 +200,14 @@ bool RabiMCWF::Propagate(double dt, int nSteps, std::vector<Vec2>& phi, int meas
 
 }
 
-
+/// <summary>
+/// Runs all iterations for this system for the given measurement frequency 
+/// </summary>
+/// <param name="nSteps">Number of time steps to evolve for each iteration</param>
+/// <param name="measureDelta">Number of time steps between each measurement</param>
+/// <param name="dt">Time step between each time step</param>
+/// <param name="iterations">Total number of iterations ro un</param>
+/// <returns>vector containing average state occupancy at each given time step, averaged over all iterations</returns>
 std::vector<Vec2R> RabiMCWF::RunExperiment(int nSteps, int measureDelta, double dt, int iterations){
 
     //Vector to store the final results (probability of being in excited state at given time step)
