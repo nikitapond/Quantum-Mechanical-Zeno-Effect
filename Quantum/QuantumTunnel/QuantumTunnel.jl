@@ -612,6 +612,9 @@ begin
 	plot(result_100_x, results_ever_100)
 end
 
+# ╔═╡ cdad8628-6ba0-11eb-12ce-1d9ba562a195
+
+
 # ╔═╡ Cell order:
 # ╠═66a11692-5ef9-11eb-1b4f-0f1071b15615
 # ╠═1b746900-5c13-11eb-131a-35dbeb769750
@@ -648,3 +651,4 @@ end
 # ╠═f6bae632-5d51-11eb-004f-7bcad0682abe
 # ╠═31fc0100-5d5e-11eb-206c-cf1c1969b692
 # ╠═c45fbe10-5d5e-11eb-3683-e5901bba715f
+# ╠═cdad8628-6ba0-11eb-12ce-1d9ba562a195
