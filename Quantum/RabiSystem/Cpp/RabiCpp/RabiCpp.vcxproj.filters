@@ -18,13 +18,13 @@
     <ClCompile Include="Mat2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MCWF_Cpp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RabiMCWF.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vec2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MCWF_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
