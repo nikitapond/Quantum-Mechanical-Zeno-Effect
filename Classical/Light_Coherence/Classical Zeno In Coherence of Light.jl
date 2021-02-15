@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.18
+# v0.12.20
 
 using Markdown
 using InteractiveUtils
@@ -400,7 +400,6 @@ if run_heatmaps
 		
 	file_path = "figs/heatmaps"
 	file_path_no_cbar = "figs/heatmaps/nocbar"
-
 	cbar_min = 0
 	cbar_max = 0.045
 	
@@ -455,6 +454,9 @@ Below, we calculate and plot the way that the power increase ratio for a single 
 # ╔═╡ 9757caca-6083-11eb-1123-49788ed0e63d
 exp_3_args = GlobalArgs(101, 0.5, 0)
 
+# ╔═╡ 820aa19c-6f6a-11eb-0591-6d5de3b3587b
+@bind exp_3_title CheckBox()
+
 # ╔═╡ 267db182-6152-11eb-3284-f9f1ca65646a
 @bind run_exp_3 CheckBox()
 
@@ -494,8 +496,17 @@ let
 		p = plot(coherence_results, power_results, seriestype = :scatter)
 		plot!(coherence_results, power_results)
 		plot!(xlabel=L"\mu_g", ylabel=L"P^{(4)}/P^{(1)}")
-		plot!(title="Preliminary result showing how power gain\n for 4 slits decreases with a more coherent light source")
-		saveFigToDir("figs/changing_coh","p4_over_p1_against_coh.pdf", p)
+		
+		
+		
+		if(exp_3_title)
+			plot!(title="Preliminary result showing how power gain\n for 4 slits decreases with a more coherent light source")
+			saveFigToDir("figs/changing_coh","p4_over_p1_against_coh.pdf", p)
+
+		else
+			saveFigToDir("figs/changing_coh/no_title","p4_over_p1_against_coh_nt.pdf", p)
+
+		end
 
 		p;
 	end
@@ -514,6 +525,9 @@ We have now created the main set of graphs we wish to plot, and so we can extend
 
 # ╔═╡ f6574b6e-6082-11eb-31f1-77523e3b4f6d
 exp_final_args  = GlobalArgs(101, 0.5, 0)
+
+# ╔═╡ bb62463e-6f6a-11eb-1020-4f7086afaaf8
+@bind final_title CheckBox()
 
 # ╔═╡ c2e0bae2-614d-11eb-2e3d-afb90e332436
 @bind run_final CheckBox()
@@ -551,16 +565,17 @@ begin
 	
 end
 
-# ╔═╡ e57330a8-615c-11eb-3ab9-43e6e846d6d0
-
-
 # ╔═╡ b4cdba96-6007-11eb-25fa-532ffb5c372a
 let
 	if(run_final)
+		
+		
+		
+		
 		pyplot()
 		p = plot(xlabel=L"N", ylabel=L"P^{(N)}/P^{(1)}")
 
-		plot!(title="Plot showing power gain as a function of\n interference slit count, shown for multiple \nstarting coherence values")
+		
 		#we select higher valu
 		mu_index_to_plot = append!([1], Array(6:2:size(results_final)[1]))
 
@@ -578,8 +593,15 @@ let
 
 		end
 		plot!(size=(600,500))
-
+		
+		if(final_title)
+			plot!(title="Plot showing power gain as a function of\n interference slit count, shown for multiple \nstarting coherence values")
 		saveFigToDir("figs/final_exp", "pN_over_p1_against_N.pdf", p)
+		else
+			
+		saveFigToDir("figs/final_exp/no_title", "pN_over_p1_against_N_nt.pdf", p)
+		end
+		
 		p	
 	end
 end
@@ -590,7 +612,7 @@ let
 		pyplot()
 
 		p = plot(xlabel=L"\mu_g", ylabel=L"P^{(N)}/P^{(1)}")
-		plot!(title="Plot showing power gain for different starting coherence\n values, for multiple numbers of slits")
+		
 
 		#iterate all excluding P^1, as we scale by P^1
 		for i in 2:2:size(results_final)[2]
@@ -610,8 +632,14 @@ let
 			#
 		end
 		plot!(size=(600,500))
-		saveFigToDir("figs/final_exp", "pN_over_p1_against_start_coh.pdf", p)
+		
+		if(final_title)
+			plot!(title="Plot showing power gain for different starting coherence\n values, for multiple numbers of slits")
+			saveFigToDir("figs/final_exp", "pN_over_p1_against_start_coh.pdf", p)
+		else
+			saveFigToDir("figs/final_exp/no_title", "pN_over_p1_against_start_coh_nt.pdf", p)
 
+		end
 		p	
 	end
 end
@@ -622,7 +650,7 @@ let
 		pyplot()
 
 		p = plot(xlabel=L"N", ylabel=L"\mu_g^{(N)}")
-		plot!(title="Plot showing global degree of coherence as we \nincrease number of slits, shown for different \nstarting values of coherence")
+		
 
 		mu_index_to_plot = append!([1], Array(6:2:size(results_final)[1]))
 
@@ -641,9 +669,12 @@ let
 			
 		end
 		plot!(size=(600,500))
-
-		saveFigToDir("figs/final_exp", "global_coh_against_N.pdf", p)
-
+		if(final_title)
+			plot!(title="Plot showing global degree of coherence as we \nincrease number of slits, shown for different \nstarting values of coherence")
+			saveFigToDir("figs/final_exp", "global_coh_against_N.pdf", p)
+		else
+			saveFigToDir("figs/final_exp/no_title", "global_coh_against_N_nt.pdf", p)
+		end
 		p	
 	end
 end
@@ -720,7 +751,10 @@ function iterateOverSlitsAndGetCoh(dat::Data, print_all=false)
 end
 
 # ╔═╡ 91c139aa-60b0-11eb-389b-9b490c4402fe
-exp_jump_args = GlobalArgs(101, 0.5, 0.2)
+exp_jump_args = GlobalArgs(41, 0.5, 0.2)
+
+# ╔═╡ 0864ff5e-6f6d-11eb-0982-2d626aa2b43a
+@bind run_jump_title CheckBox()
 
 # ╔═╡ 3da4cef6-6150-11eb-0e44-d74baa81dcd5
 @bind run_jump_test CheckBox()
@@ -767,9 +801,8 @@ end
 # ╔═╡ 7368859e-60b2-11eb-329c-a18737645b13
 let
 	if(run_jump_test)
-		p = plot(title="Plot showing variation in global coherence\n after each slit, for different total slit numbers")
-		plot!(xlabel=L"z_D")
-		plot!(ylabel=L"\mu_g")
+		p=plot(xlabel=L"z_D", ylabel=L"\mu_g")
+		
 		for (i, j_coh) in enumerate(jump_coh_results)
 
 			final_plot_x = Any[]
@@ -796,8 +829,13 @@ let
 			label_val = n_test[i]
 			plot!(final_plot_x, final_plot_y, label="N=$label_val")
 		end
-		saveFigToDir("figs/final_exp", "coh_jump_each_slit.pdf", p)
-
+		
+		if(run_jump_title)
+			plot!(title="Plot showing variation in global coherence\n after each slit, for different total slit numbers")		
+			saveFigToDir("figs/final_exp", "coh_jump_each_slit.pdf", p)
+		else
+			saveFigToDir("figs/final_exp/no_title", "coh_jump_each_slit_nt.pdf", p)
+		end
 		p
 	end
 end
@@ -806,9 +844,8 @@ end
 
 let
 	if(run_jump_test)
-		p = plot(title="Plot showing variation in power \n after each slit, for different total slit numbers")
-		plot!(xlabel=L"z_D")
-		plot!(ylabel=L"P")
+		
+		p = plot(xlabel=L"z_D", ylabel=L"P")
 		for (i, j_coh) in enumerate(jump_power_results)
 
 			final_plot_x = Any[]
@@ -840,8 +877,13 @@ let
 			label_val = n_test[i]
 			plot!(final_plot_x, final_plot_y, label="N=$label_val")
 		end
-		saveFigToDir("figs/final_exp", "pow_jump_each_slit.pdf", p)
-
+		
+		if(run_jump_title)
+			plot!(title="Plot showing variation in power \n after each slit, for different total slit numbers")
+			saveFigToDir("figs/final_exp", "pow_jump_each_slit.pdf", p)
+		else
+			saveFigToDir("figs/final_exp/no_title", "pow_jump_each_slit_nt.pdf", p)
+		end
 		p
 	end
 end
@@ -875,22 +917,24 @@ end
 # ╠═8a0550d6-5ff2-11eb-33b5-79c6ac0b4c63
 # ╟─ffa9ae64-6156-11eb-393b-2bf51a61773e
 # ╟─9757caca-6083-11eb-1123-49788ed0e63d
+# ╠═820aa19c-6f6a-11eb-0591-6d5de3b3587b
 # ╠═267db182-6152-11eb-3284-f9f1ca65646a
 # ╠═405c5032-5ff8-11eb-1423-3392b17d1945
 # ╟─d3ddbe50-6158-11eb-142e-fdb83d14c5c2
 # ╟─d9fe2a80-6156-11eb-003a-4b83419b6b49
-# ╟─f6574b6e-6082-11eb-31f1-77523e3b4f6d
+# ╠═f6574b6e-6082-11eb-31f1-77523e3b4f6d
+# ╠═bb62463e-6f6a-11eb-1020-4f7086afaaf8
 # ╠═c2e0bae2-614d-11eb-2e3d-afb90e332436
 # ╟─a5f281b8-6005-11eb-0bda-09ff565b6cd9
-# ╟─e57330a8-615c-11eb-3ab9-43e6e846d6d0
 # ╟─b4cdba96-6007-11eb-25fa-532ffb5c372a
 # ╟─dc1bcd2c-609d-11eb-1457-172e8da11277
-# ╟─fe0b1ca2-609e-11eb-04b0-4d624a098f95
+# ╠═fe0b1ca2-609e-11eb-04b0-4d624a098f95
 # ╟─75213890-6152-11eb-2174-01d67465f3f8
 # ╟─093a9858-60b0-11eb-0ca1-b92defa3bb4d
 # ╠═91c139aa-60b0-11eb-389b-9b490c4402fe
+# ╠═0864ff5e-6f6d-11eb-0982-2d626aa2b43a
 # ╠═3da4cef6-6150-11eb-0e44-d74baa81dcd5
 # ╠═e957f802-6152-11eb-30a3-331d53e32933
 # ╠═7adc8a16-60b0-11eb-022e-efa13742de0a
-# ╟─7368859e-60b2-11eb-329c-a18737645b13
-# ╟─59f1b756-6153-11eb-0685-3163bdc3debc
+# ╠═7368859e-60b2-11eb-329c-a18737645b13
+# ╠═59f1b756-6153-11eb-0685-3163bdc3debc
