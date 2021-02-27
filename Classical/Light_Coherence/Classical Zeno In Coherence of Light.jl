@@ -751,7 +751,8 @@ function iterateOverSlitsAndGetCoh(dat::Data, print_all=false)
 end
 
 # ╔═╡ 91c139aa-60b0-11eb-389b-9b490c4402fe
-exp_jump_args = GlobalArgs(41, 0.5, 0.2)
+exp_jump_args = GlobalArgs(101, 0.5, 0.2)
+
 
 # ╔═╡ 0864ff5e-6f6d-11eb-0982-2d626aa2b43a
 @bind run_jump_title CheckBox()
@@ -913,7 +914,7 @@ end
 # ╟─bd94c1d0-5ff1-11eb-2863-ef94e26d9cc8
 # ╠═6cf6803c-607e-11eb-3bfc-69879c07310e
 # ╠═f3c717b4-6233-11eb-3f44-b95ab2db7951
-# ╟─0a5b3306-614f-11eb-08d6-07ac92e07c51
+# ╠═0a5b3306-614f-11eb-08d6-07ac92e07c51
 # ╠═8a0550d6-5ff2-11eb-33b5-79c6ac0b4c63
 # ╟─ffa9ae64-6156-11eb-393b-2bf51a61773e
 # ╟─9757caca-6083-11eb-1123-49788ed0e63d
@@ -925,7 +926,7 @@ end
 # ╠═f6574b6e-6082-11eb-31f1-77523e3b4f6d
 # ╠═bb62463e-6f6a-11eb-1020-4f7086afaaf8
 # ╠═c2e0bae2-614d-11eb-2e3d-afb90e332436
-# ╟─a5f281b8-6005-11eb-0bda-09ff565b6cd9
+# ╠═a5f281b8-6005-11eb-0bda-09ff565b6cd9
 # ╟─b4cdba96-6007-11eb-25fa-532ffb5c372a
 # ╟─dc1bcd2c-609d-11eb-1457-172e8da11277
 # ╠═fe0b1ca2-609e-11eb-04b0-4d624a098f95
